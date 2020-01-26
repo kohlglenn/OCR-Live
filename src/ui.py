@@ -8,17 +8,6 @@ from matplotlib.figure import Figure
 import numpy as np
 from src.SavedModel import get_model
 
-matplotlib.use('Qt5Agg')
-REFRESH_RATE = 100
-
-
-def pixels_to_inches(pixels, dpi):
-    return pixels/dpi
-
-
-def inches_to_pixels(inches, dpi):
-    return inches * dpi
-
 
 class MplCanvas(FigureCanvasQTAgg):
     # Fig size is in inches, constructor is in pixels
@@ -81,7 +70,6 @@ class Canvas(QtWidgets.QLabel):
 
 
 class MainWindow(QtWidgets.QMainWindow):
-
     def __init__(self):
         super().__init__()
         self.setWindowTitle("OCR Live Demo")
@@ -170,14 +158,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.class_label.update()
 
 
-COLORS = [
-    # 17 undertones https://lospec.com/palette-list/17undertones
-    '#000000', '#141923', '#414168', '#3a7fa7', '#35e3e3', '#8fd970', '#5ebb49',
-    '#458352', '#dcd37b', '#fffee5', '#ffd035', '#cc9245', '#a15c3e', '#a42f3b',
-    '#f45b7a', '#c24998', '#81588d', '#bcb0c2', '#ffffff',
-]
-
-
 class QPaletteButton(QtWidgets.QPushButton):
 
     def __init__(self, color):
@@ -198,6 +178,23 @@ def my_fun(arr):
     return 255 - (arr[0]/3 + arr[1]/3 + arr[2]/3)
 
 
-app = QtWidgets.QApplication(sys.argv)
-window = MainWindow()
-app.exec_()
+def pixels_to_inches(pixels, dpi):
+    return pixels/dpi
+
+
+def inches_to_pixels(inches, dpi):
+    return inches * dpi
+
+
+if __name__ == "__main__":
+    COLORS = [
+        # 17 undertones https://lospec.com/palette-list/17undertones
+        '#000000', '#141923', '#414168', '#3a7fa7', '#35e3e3', '#8fd970', '#5ebb49',
+        '#458352', '#dcd37b', '#fffee5', '#ffd035', '#cc9245', '#a15c3e', '#a42f3b',
+        '#f45b7a', '#c24998', '#81588d', '#bcb0c2', '#ffffff',
+    ]
+    matplotlib.use('Qt5Agg')
+    REFRESH_RATE = 100
+    app = QtWidgets.QApplication(sys.argv)
+    window = MainWindow()
+    app.exec_()
