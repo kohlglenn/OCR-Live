@@ -9,6 +9,7 @@ import numpy as np
 from src.SavedModel import get_model
 
 matplotlib.use('Qt5Agg')
+REFRESH_RATE = 100
 
 
 def pixels_to_inches(pixels, dpi):
@@ -84,7 +85,7 @@ class MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("OCR Live Demo")
-        self.setWindowIcon(QIcon("py.png"))
+        self.setWindowIcon(QIcon("../images/py.png"))
 
         cl = QtWidgets.QLabel()
         cl.setText("?")
@@ -130,7 +131,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.show()
         self.model = get_model()
         self._timer_painter = QTimer(self)
-        self._timer_painter.start(50)
+        self._timer_painter.start(REFRESH_RATE)
         self._timer_painter.timeout.connect(self.get_predictions)
 
     def add_palette_buttons(self, layout):
